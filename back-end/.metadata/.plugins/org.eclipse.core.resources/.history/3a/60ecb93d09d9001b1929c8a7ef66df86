@@ -1,0 +1,31 @@
+package com.mateus.post.repositories;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.mateus.post.domain.Post;
+
+@ExtendWith(SpringExtension.class)
+public class PostRepositoryTest {
+	
+	@Autowired
+	private PostRepository repo;
+	
+	@Test
+	public void testaPostInicial() {
+		List<Post> posts = repo.findByMensagemContaining("Mens");
+		assertThat(posts.size()).isEqualTo(1);
+	}
+	
+	@Test
+	public void testaPost2() {
+		List<Post> posts = repo.findByMensagemContaining("Mens2");
+		assertThat(posts.size()).isEqualTo(0);
+	}
+}

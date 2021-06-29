@@ -1,0 +1,1 @@
+insert into POST(TITULO, MENSAGEM, DATA_DE_PUBLICACAO,UPVOTE) values ('Post inicial', 'Mensagem inicial', '2021-06-28 21:00:00',false);

@@ -1,0 +1,2 @@
+insert into POST(TITULO) values ('Post inicial');
+insert into POST(MENSAGEM) values ('Mensagem inicial');

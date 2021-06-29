@@ -1,0 +1,58 @@
+package com.mateus.todo.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mateus.post.domain.Post;
+import com.mateus.post.repositories.TodoRepository;
+import com.mateus.todo.service.exceptions.ObjectNotFoundException;
+
+@Service
+public class TodoService {
+	
+	@Autowired
+	private TodoRepository repository;
+	
+	public Post findById(Integer id) {
+		Optional<Post> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Post.class.getName()));
+	}
+
+	public List<Post> findAllOpen() {
+		List<Post> list = repository.findAllOpen();
+		return list;
+	}
+
+	public List<Post> findAllClose() {
+		List<Post> list = repository.findAllClose();
+		return list;
+	}
+
+	public List<Post> findAll() {
+		List<Post> list = repository.findAll();
+		return list;
+	}
+
+	public Post create(Post obj) {
+		obj.setId(null);
+		return repository.save(obj);
+	}
+
+	public void delete(Integer id) {
+		repository.deleteById(id);
+		
+	}
+
+	public Post update(Integer id, Post obj) {
+		Post newObj = findById(id);
+		newObj.setTitulo(obj.getTitulo());
+		newObj.setDataDePublicacao(obj.getDataDePublicacao());
+		newObj.setMensagem(obj.getMensagem());
+		newObj.setUpvote(obj.getUpvote());
+		return repository.save(newObj);
+	}
+	
+}
